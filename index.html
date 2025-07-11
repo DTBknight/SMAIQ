@@ -136,7 +136,8 @@
                         <i class="fa fa-calculator mr-2"></i>计算报价
                     </button>
                 </div>
-            </form>
+                <input type="hidden" id="finalPrice">
+</form>
         </div>
 
         <!-- 结果区域 -->
@@ -205,7 +206,7 @@
 
         <!-- 页脚 -->
         <footer class="mt-12 text-center text-neutral text-sm">
-            <p>© 2025 汽车出口报价计算器 | 设计与开发</p>
+            <p>设计与开发：DBTKnight</p>
         </footer>
     </div>
 
@@ -358,17 +359,25 @@
         });
 
         // 更新汇率
-        function updateExchangeRate() {
-            const currency = currencyTypeSelect.value;
-            const baseRate = exchangeRates[currency];
-            const adjustedRate = (baseRate - 0.05).toFixed(4);
-            
-            baseRateSpan.textContent = `(基准: ${baseRate})`;
-            exchangeRateInput.value = adjustedRate;
-            
-            // 触发计算
-            calculateValues();
-        }
+        async function updateExchangeRate() {
+    const currency = currencyTypeSelect.value;
+
+    try {
+        const res = await fetch(`https://openexchangerates.org/api/latest.json?app_id=145b3ca7abb2474f9e1f30b2ed19b77f`);
+        const data = await res.json();
+
+        const baseRate = data.rates[currency];
+        const adjustedRate = (baseRate - 0.05).toFixed(4);
+
+        baseRateSpan.textContent = `(实时基准: ${baseRate})`;
+        exchangeRateInput.value = adjustedRate;
+
+        calculateValues();
+    } catch (error) {
+        console.error("汇率获取失败", error);
+        alert("汇率获取失败，请检查网络或API密钥");
+    }
+}
 
         // 渲染动态表单字段
         function renderDynamicFields(carType) {
