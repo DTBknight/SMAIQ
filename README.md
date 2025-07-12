@@ -53,7 +53,7 @@ npx http-server -p 8080
 
 ### API接口
 
-- `GET /api/search-car?keyword=关键词` - 搜索车型（抓取懂车帝）
+- `GET /api/search-car?keyword=关键词` - 搜索车型
 - `GET /api/search-car-fallback?keyword=关键词` - 备用搜索（静态数据）
 - `GET /health` - 健康检查
 
