@@ -1,6 +1,6 @@
-# 汽车报价计算器 - 车型搜索功能
+# Car Price Calculator - Model Search Function
 
-## 项目结构
+## Project structure
 
 ```
 ├── V2.html              # 前端页面
